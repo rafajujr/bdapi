@@ -7,16 +7,17 @@ import './database';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import delay from 'express-delay';
 
 import homeRoutes from './routes/HomeRoutes';
 import userRoutes from './routes/UserRoutes';
 import tokenRoutes from './routes/TokenRoutes';
 import alunoRoutes from './routes/AlunoRoutes';
 import fotoRoutes from './routes/FotoRoutes';
-
+/*
 const whiterList = [
   'nomeDoDomino',
-  'http//localhost:300',
+  'http//localhost:3000',
 ];
 
 const corsOptions = {
@@ -28,7 +29,7 @@ const corsOptions = {
     }
   },
 };
-
+*/
 class App {
   constructor() {
     this.app = express();
@@ -37,11 +38,12 @@ class App {
   }
 
   middlewares() {
-    this.app.use(cors(corsOptions));
-    this.app.use(helmet());
+    this.app.use(cors());
+    this.app.use(helmet({ crossOriginResourcePolicy: false }));
+    this.app.use(delay(0));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use(express.static(resolve(__dirname, 'uploads')));
+    this.app.use(express.static(resolve(__dirname, '..', 'uploads')));
   }
 
   routes() {
