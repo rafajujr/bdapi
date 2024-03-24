@@ -6,5 +6,5 @@ const port = process.env.APP_PORT;
 _app2.default.listen(port, () => {
   console.log();
   console.log(`Escutando na porta ${port}`);
-  console.log(`CTRL + Clique em ${_appConfig2.default.url}:${port}`);
+  console.log(`CTRL + Clique em ${_appConfig2.default.url}`);
 });

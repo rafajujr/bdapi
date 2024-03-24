@@ -17,6 +17,9 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
       email: {
         type: _sequelize2.default.STRING,
         defaultValue: '',
+        unique: {
+          msg: 'Email já cadastrado',
+        },
         validate: {
           isEmail: {
             msg: 'Email inválido',
@@ -42,7 +45,9 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
     });
 
     this.addHook('beforeSave', async (user) => {
-      user.password_hash = await _bcryptjs2.default.hash(user.password, 8);
+      if (user.password) {
+        user.password_hash = await _bcryptjs2.default.hash(user.password, 8);
+      }
     });
     return this;
   }
